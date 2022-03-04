@@ -11,48 +11,48 @@ namespace PortifolioAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FornecedoresController : ControllerBase
+    public class ProdutosController : ControllerBase
     {
         private readonly ApiDbContext _context;
 
-        public FornecedoresController(ApiDbContext context)
+        public ProdutosController(ApiDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Fornecedores
+        // GET: api/Produtos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Fornecedor>>> ObterTodos()
+        public async Task<ActionResult<IEnumerable<Produto>>> ObterTodos()
         {
-            return await _context.Fornecedores.ToListAsync();
+            return await _context.Produtos.ToListAsync();
         }
 
-        // GET: api/Fornecedores/5
+        // GET: api/Produtos/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Fornecedor>> ObterPorID(Guid id)
+        public async Task<ActionResult<Produto>> ObterPorID(Guid id)
         {
-            var fornecedor = await _context.Fornecedores.FindAsync(id);
+            var produto = await _context.Produtos.FindAsync(id);
 
-            if (fornecedor == null)
+            if (produto == null)
             {
                 return NotFound();
             }
 
-            return fornecedor;
+            return produto;
         }
 
-        // PUT: api/Fornecedores/5
+        // PUT: api/Produtos/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> Atualizar(Guid id, Fornecedor fornecedor)
+        public async Task<IActionResult> Atualizar(Guid id, Produto produto)
         {
-            if (id != fornecedor.Id)
+            if (id != produto.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(fornecedor).State = EntityState.Modified;
+            _context.Entry(produto).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace PortifolioAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!FornecedorExists(id))
+                if (!ProdutoExists(id))
                 {
                     return NotFound();
                 }
@@ -73,37 +73,37 @@ namespace PortifolioAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Fornecedores
+        // POST: api/Produtos
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Fornecedor>> Adicionar(Fornecedor fornecedor)
+        public async Task<ActionResult<Produto>> Adicionar(Produto produto)
         {
-            _context.Fornecedores.Add(fornecedor);
+            _context.Produtos.Add(produto);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetFornecedor", new { id = fornecedor.Id }, fornecedor);
+            return CreatedAtAction("GetProduto", new { id = produto.Id }, produto);
         }
 
-        // DELETE: api/Fornecedores/5
+        // DELETE: api/Produtos/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Fornecedor>> Excluir(Guid id)
+        public async Task<ActionResult<Produto>> Excluir(Guid id)
         {
-            var fornecedor = await _context.Fornecedores.FindAsync(id);
-            if (fornecedor == null)
+            var produto = await _context.Produtos.FindAsync(id);
+            if (produto == null)
             {
                 return NotFound();
             }
 
-            _context.Fornecedores.Remove(fornecedor);
+            _context.Produtos.Remove(produto);
             await _context.SaveChangesAsync();
 
-            return fornecedor;
+            return produto;
         }
 
-        private bool FornecedorExists(Guid id)
+        private bool ProdutoExists(Guid id)
         {
-            return _context.Fornecedores.Any(e => e.Id == id);
+            return _context.Produtos.Any(e => e.Id == id);
         }
     }
 }

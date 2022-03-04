@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PortifolioAPI.Model;
 
-namespace ApiSimples.Model
+namespace PortifolioAPI.Model
 {
     public class ApiDbContext: DbContext
     {
@@ -12,6 +11,7 @@ namespace ApiSimples.Model
         }
 
         public DbSet<Fornecedor> Fornecedores { get; set; }
+        public DbSet<Produto> Produtos { get; set; }
 
 
     }
