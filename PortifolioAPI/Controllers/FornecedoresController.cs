@@ -9,9 +9,9 @@ using PortifolioAPI.Model;
 
 namespace PortifolioAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/fornecedores")]
     [ApiController]
-    public class FornecedoresController : ControllerBase
+    public class FornecedoresController : MainController
     {
         private readonly ApiDbContext _context;
 
@@ -28,10 +28,11 @@ namespace PortifolioAPI.Controllers
         }
 
         // GET: api/Fornecedores/5
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
         public async Task<ActionResult<Fornecedor>> ObterPorID(Guid id)
         {
-            var fornecedor = await _context.Fornecedores.FindAsync(id);
+            //var fornecedor = await _context.Fornecedores.FindAsync(id);
+            var fornecedor = await _context.Fornecedores.AsNoTracking().Include(c => c.Produtos).FirstOrDefaultAsync(c => c.Id == id);
 
             if (fornecedor == null)
             {

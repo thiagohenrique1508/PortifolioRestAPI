@@ -9,9 +9,9 @@ using PortifolioAPI.Model;
 
 namespace PortifolioAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/produtos")]
     [ApiController]
-    public class ProdutosController : ControllerBase
+    public class ProdutosController : MainController
     {
         private readonly ApiDbContext _context;
 

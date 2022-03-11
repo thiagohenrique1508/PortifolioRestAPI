@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PortifolioAPI.Model
@@ -22,7 +23,7 @@ namespace PortifolioAPI.Model
 
         public bool Ativo { get; set; }
 
-        //public IEnumerable<ProdutoViewModel> Produtos { get; set; }
+        public IEnumerable<Produto> Produtos { get; set; }
 
     }
 }
