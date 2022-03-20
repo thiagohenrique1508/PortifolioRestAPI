@@ -57,6 +57,7 @@ namespace PortifolioAPI.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -70,7 +71,7 @@ namespace PortifolioAPI.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(produto);
         }
 
         // POST: api/Produtos
@@ -80,9 +81,12 @@ namespace PortifolioAPI.Controllers
         public async Task<ActionResult<Produto>> Adicionar(Produto produto)
         {
             _context.Produtos.Add(produto);
-            await _context.SaveChangesAsync();
+            var result = await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProduto", new { id = produto.Id }, produto);
+            if (result <= 0) return BadRequest();
+
+            return Ok(produto);
+            //return CreatedAtAction("GetProduto", new { id = produto.Id }, produto);
         }
 
         // DELETE: api/Produtos/5
